@@ -1,4 +1,4 @@
-# TakeUforward Wall Calendar V3 🔴
+# TakeUforward Wall Calendar 🔴
 
 An interactive, editorial-style wall calendar web application designed specifically for the TakeUforward brand. The application acts as a comprehensive productivity and ambient tracker for developers, combining a premium brutalist dark-mode aesthetic with powerful local data features.
 
