@@ -20,14 +20,14 @@ const DAYS_FULL = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 const DAYS_SHORT = ["S", "M", "T", "W", "T", "F", "S"];
 
 const TUF_COURSES = [
-  { title: "Strivers A2Z DSA Course", videoId: "rZ41y93P2Qo", url: "https://www.youtube.com/playlist?list=PLgUwDviBIf0oF6QL8m22w1hIDC1vJ_BHz" },
-  { title: "Strivers SDE Sheet", videoId: "WNtzUR_MwUQ", url: "https://www.youtube.com/playlist?list=PLgUwDviBIf0p4ozDR_kJJkONnb1wdx2Ma" },
-  { title: "Placement Series", videoId: "A5VKgyXFxzk", url: "https://www.youtube.com/playlist?list=PLgUwDviBIf0oSO572kQ7KCSvCUh1AdILj" },
-  { title: "Tree Series", videoId: "YqMNl6pRJLg", url: "https://www.youtube.com/playlist?list=PLgUwDviBIf0q8Hkd7bK2Bpryj2xVJk8Vk" },
+  { title: "Strivers A2Z DSA Course", videoId: "EAR7De6Goz4", url: "https://www.youtube.com/playlist?list=PLgUwDviBIf0oF6QL8m22w1hIDC1vJ_BHz" },
+  { title: "Strivers SDE Sheet", videoId: "4Xh9DLUQCWs", url: "https://www.youtube.com/playlist?list=PLgUwDviBIf0p4ozDR_kJJkONnb1wdx2Ma" },
+  { title: "Placement Series", videoId: "eay-zoSRkVc", url: "https://www.youtube.com/playlist?list=PLgUwDviBIf0oSO572kQ7KCSvCUh1AdILj" },
+  { title: "Tree Series", videoId: "NwBvene4Imo", url: "https://www.youtube.com/playlist?list=PLgUwDviBIf0q8Hkd7bK2Bpryj2xVJk8Vk" },
   { title: "Graph Series", videoId: "M3_pLsDdeuU", url: "https://www.youtube.com/playlist?list=PLgUwDviBIf0oE3Xt5SxP3HR_PbjKNIGYR" },
-  { title: "Dynamic Programming", videoId: "FfXoiwwnxFw", url: "https://www.youtube.com/playlist?list=PLgUwDviBIf0qUlt5H_kiKYaNSqJ81PMMY" },
-  { title: "Recursion & Backtracking", videoId: "Hdr64lKQ3e4", url: "https://www.youtube.com/playlist?list=PLgUwDviBIf0rGlzIn_7rsaR2FQ5e6ZOL9" },
-  { title: "Binary Search Series", videoId: "W9QJ8HaRvJQ", url: "https://www.youtube.com/playlist?list=PLgUwDviBIf0pMFMWuuvDNMAkoQFi-h0ZF" },
+  { title: "Dynamic Programming", videoId: "tyB0ztf0DNY", url: "https://www.youtube.com/playlist?list=PLgUwDviBIf0qUlt5H_kiKYaNSqJ81PMMY" },
+  { title: "Recursion & Backtracking", videoId: "cEadsbTeze4", url: "https://www.youtube.com/playlist?list=PLgUwDviBIf0rGlzIn_7rsaR2FQ5e6ZOL9" },
+  { title: "Binary Search Series", videoId: "z9bJUPxzFOw", url: "https://www.youtube.com/playlist?list=PLgUwDviBIf0pMFMWuuvDNMAkoQFi-h0ZF" },
 ];
 
 function getThumbnailUrl(videoId: string, quality: "maxres" | "sd" | "hq" = "hq") {
@@ -427,6 +427,20 @@ export function Calendar() {
 
   const heroCourse = TUF_COURSES[heroIndex];
 
+  const nextVideo = (e?: React.MouseEvent) => {
+    e?.preventDefault();
+    setHeroIndex(prev => (prev + 1) % TUF_COURSES.length);
+    setImgLoaded(false);
+    setImgError(false);
+  };
+
+  const prevVideo = (e?: React.MouseEvent) => {
+    e?.preventDefault();
+    setHeroIndex(prev => (prev - 1 + TUF_COURSES.length) % TUF_COURSES.length);
+    setImgLoaded(false);
+    setImgError(false);
+  };
+
   const handleImgError = (e: React.SyntheticEvent<HTMLImageElement>) => {
     const img = e.currentTarget;
     const src = img.src;
@@ -492,45 +506,63 @@ export function Calendar() {
             </div>
           </div>
         ) : (
-          <a
-            href={heroCourse.url}
-            target="_blank"
-            rel="noopener noreferrer"
+          <div
             className="block h-36 sm:h-48 md:h-64 mb-4 sm:mb-6 md:mb-8 border-2 border-brand-border overflow-hidden relative group mt-3 sm:mt-4"
             style={imgError ? { background: FALLBACK_BG } : undefined}
           >
-            {!imgError && (
-              <img
-                key={heroCourse.videoId}
-                src={getThumbnailUrl(heroCourse.videoId, "hq")}
-                alt={heroCourse.title}
-                onLoad={() => setImgLoaded(true)}
-                onError={handleImgError}
-                className={cn(
-                  "w-full h-full object-cover transition-all duration-700 group-hover:scale-105",
-                  imgLoaded ? "opacity-80 group-hover:opacity-100" : "opacity-0"
-                )}
-              />
-            )}
-            {!imgLoaded && !imgError && (
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-6 h-6 border-2 border-brand-red border-t-transparent rounded-full animate-spin" />
-              </div>
-            )}
-            <div className="absolute inset-0 bg-gradient-to-t from-brand-black/90 via-brand-black/30 to-transparent" />
-            <div className="absolute bottom-2 sm:bottom-4 left-2 sm:left-4 right-2 sm:right-4">
+            <a
+              href={heroCourse.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="absolute inset-0 z-0 block cursor-pointer"
+            >
+              {!imgError && (
+                <img
+                  key={heroCourse.videoId}
+                  src={getThumbnailUrl(heroCourse.videoId, "hq")}
+                  alt={heroCourse.title}
+                  onLoad={() => setImgLoaded(true)}
+                  onError={handleImgError}
+                  className={cn(
+                    "w-full h-full object-cover transition-all duration-700 group-hover:scale-105",
+                    imgLoaded ? "opacity-80 group-hover:opacity-100" : "opacity-0"
+                  )}
+                />
+              )}
+              {!imgLoaded && !imgError && (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="w-6 h-6 border-2 border-brand-red border-t-transparent rounded-full animate-spin" />
+                </div>
+              )}
+              <div className="absolute inset-0 bg-gradient-to-t from-brand-black/90 via-brand-black/30 to-transparent pointer-events-none" />
+            </a>
+
+            {/* UI Overlay Layer */}
+            <div className="absolute bottom-2 sm:bottom-4 left-2 sm:left-4 right-2 sm:right-4 pointer-events-none">
               <div className="text-[10px] uppercase font-bold text-brand-red tracking-widest mb-1">takeUforward Course</div>
               <h2 className="text-sm sm:text-lg md:text-xl font-black uppercase tracking-wider text-brand-white leading-tight">{heroCourse.title}</h2>
             </div>
-            <div className="absolute top-2 sm:top-4 right-2 sm:right-4 text-brand-white bg-brand-black/80 px-2 sm:px-4 py-1 sm:py-2 border border-brand-border">
+
+            <div className="absolute top-2 sm:top-4 right-2 sm:right-4 text-brand-white bg-brand-black/80 px-2 sm:px-4 py-1 sm:py-2 border border-brand-border pointer-events-none">
               <span className="text-xs sm:text-sm md:text-lg font-bold uppercase tracking-widest">{MONTHS[month]} {year}</span>
             </div>
-            <div className="absolute bottom-2 right-2 sm:bottom-4 sm:right-4 flex gap-1">
+
+            {/* Navigation Layer */}
+            <div className="absolute inset-y-0 left-0 right-0 flex items-center justify-between px-2 sm:px-4 opacity-0 group-hover:opacity-100 transition-opacity z-10 pointer-events-none">
+              <button onClick={prevVideo} className="pointer-events-auto bg-brand-black/80 hover:bg-brand-red text-brand-white p-1.5 sm:p-2 border border-brand-border active:scale-95 transition-transform backdrop-blur-sm"><ChevronLeft size={20} /></button>
+              <button onClick={nextVideo} className="pointer-events-auto bg-brand-black/80 hover:bg-brand-red text-brand-white p-1.5 sm:p-2 border border-brand-border active:scale-95 transition-transform backdrop-blur-sm"><ChevronRight size={20} /></button>
+            </div>
+
+            <div className="absolute bottom-2 right-2 sm:bottom-4 sm:right-4 flex gap-1 sm:gap-1.5 z-10">
               {TUF_COURSES.map((_, i) => (
-                <div key={i} className={cn("w-1.5 h-1.5 rounded-full transition-colors", i === heroIndex ? "bg-brand-red" : "bg-brand-white/20")} />
+                <button
+                  key={i}
+                  onClick={(e) => { e.preventDefault(); setHeroIndex(i); setImgLoaded(false); setImgError(false); }}
+                  className={cn("w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full transition-colors pointer-events-auto", i === heroIndex ? "bg-brand-red" : "bg-brand-white/20 hover:bg-brand-white/50")}
+                />
               ))}
             </div>
-          </a>
+          </div>
         )}
 
         {/* Month Navigation + Notes Tab Button */}
