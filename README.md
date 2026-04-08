@@ -1,36 +1,49 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# TakeUforward Wall Calendar V3 🔴
 
-## Getting Started
+An interactive, editorial-style wall calendar web application designed specifically for the TakeUforward brand. The application acts as a comprehensive productivity and ambient tracker for developers, combining a premium brutalist dark-mode aesthetic with powerful local data features.
 
-First, run the development server:
+## ✨ Core Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### 📅 Advanced Calendar Grid
+*   **Brutalist Editorial Aesthetic**: Sharp borders, `#050505` true-dark background, and a unique "spiral bound" visual wrapper.
+*   **Date Range Selection**: Click any two dates (start and end) to select ranges directly on the calendar. Features dynamic highlighting for the days falling inside the interval.
+*   **Month Traversal**: Fully fluid month-to-month navigation.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 🎥 Dynamic Hero Video Presenter
+*   **Rotating Content**: The header automatically cycles through 8 confirmed master playlists from Striver (A2Z DSA, SDE Sheet, Graph Series, etc.).
+*   **Visual Pacing**: Cycles smoothly every 20 seconds.
+*   **Reliable Fetching**: Utilizes `hqdefault` YouTube thumbnail fetching for guaranteed 100% resolution availability, avoiding broken images on older API endpoints.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 📝 Integrated Tag-Based Notes System
+*   **Contextual Notes**: Bind notes to a single specific date OR an entire selected date range.
+*   **Pre-defined Tagging**: One-click apply predefined semantic tags directly into the input area (`#DSA`, `#Revision`, `#Interview`, `#System Design`, `#Mock`).
+*   **Grid Indicators**: Calendar dates containing active notes render a subtle red/white "sticky note" icon directly on the grid cell.
+*   **Persistent Storage**: Fully backed by browser `localStorage`, ensuring data safety on reload.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 🔍 Interactive Note Modals
+*   **All Notes Manager**: A dedicated overlay portal (`z-50`) with a frosted backdrop.
+*   **Instant Tag Filtering**: The manager dynamically indexes every tag you've ever used, producing a single-click filter bar to immediately isolate related tasks.
+*   **Day Peek Popover**: Clicking the red indicator icon on the calendar grid instantly pops up a scoped dialog showing only the notes pertaining to that exact day.
 
-## Learn More
+### 📊 Animated DSA Donut Progress
+*   **Custom SVG Engineering**: Built bypassing standard CSS restrictions (`conic-gradient`) in favor of an SVG `<circle>` tracking `strokeDasharray`.
+*   **Mount Animation**: Smoothly rolls from 0 to 73% (329/450) on page load.
+*   **Sick Aesthetic Hover**: A custom `500ms cubic-bezier` easing animation replaces the percentage readout with a structural calculation (`329/450 Problems`) using absolute stacking and opacity crossfades.
 
-To learn more about Next.js, take a look at the following resources:
+### 🇮🇳 Real-time Indian Holidays Engine
+*   **Temporal Awareness**: Compares a static list of 22 Indian Public Observances against `Date.now()`.
+*   **Smart Urgency Parsing**: Intelligently renders dynamic strings: `Today!`, `Tomorrow`, or `x days away`.
+*   **View All Dialog**: Expands into a massive scrollable list grouped completely by month (January → December), dynamically tracking whether a holiday has passed (dimmed/struck through) or is current.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 💭 Motivational Quote Slider
+*   **Smart Rotation**: A curated array of developer/discipline quotes that auto-cycles with a CSS fade transition every 15 seconds.
+*   **Manual Control**: Responsive structural DOM setup featuring manual chevron overrides (`<` | `>`) and interactive dot indicators to freely scrub quotes.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🛠️ Tech Stack & Philosophy
+*   **Framework**: Next.js 15 (App Router).
+*   **Language**: TypeScript (`.tsx`).
+*   **Styling**: Tailwind CSS v4 (Custom brand tokens + explicit constraint guidelines).
+*   **Icons**: Lucide React.
+*   **Design Philosophy**: "Luxury Minimal / Editorial" — Explicit rejection of generic layouts. Utilizes asymmetrical structural layouts, extremely tight typography contrast, raw borders, purposeful interaction animations, and no system fonts.
